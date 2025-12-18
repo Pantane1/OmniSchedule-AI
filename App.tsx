@@ -8,6 +8,7 @@ import ClientManagement from './components/ClientManagement';
 import AppointmentsList from './components/AppointmentsList';
 import BookingInterface from './components/BookingInterface';
 import Login from './components/Login';
+import DevPanel from './components/DevPanel';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -80,6 +81,19 @@ const App: React.FC = () => {
     localStorage.setItem('omni_admin_notes', JSON.stringify(updated));
   };
 
+  const resetAllData = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
+  const seedMockData = () => {
+    setAppointments(MOCK_APPOINTMENTS);
+    setAdminNotes([]);
+    localStorage.setItem('omni_appointments', JSON.stringify(MOCK_APPOINTMENTS));
+    localStorage.removeItem('omni_admin_notes');
+    alert('Mock data seeded successfully.');
+  };
+
   if (!currentUser) {
     return <Login onLogin={handleLogin} />;
   }
@@ -139,6 +153,13 @@ const App: React.FC = () => {
               adminNotes={adminNotes}
               onAddNote={addAdminNote}
               onDeleteNote={deleteAdminNote}
+            />
+          )}
+          {activeTab === 'dev' && (
+            <DevPanel 
+              state={{ appointments, clients, adminNotes }}
+              onReset={resetAllData}
+              onSeed={seedMockData}
             />
           )}
         </div>
