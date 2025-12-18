@@ -1,0 +1,7 @@
+{
+  "name": "OmniSchedule AI",
+  "description": "A smart appointment and client management system featuring AI-driven insights, automated scheduling suggestions, and a comprehensive admin dashboard.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
